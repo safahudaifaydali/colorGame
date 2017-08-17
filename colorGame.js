@@ -37,14 +37,14 @@ function createSquares(num){
 }
 
 resetButton.addEventListener("click", function(){
-	resetButton.textContent = "Nexw Colors";
+	resetButton.textContent = "New Colors";
 	colors = generateRandomColors(numOfSquares);
 	pickedColor = pickColor();
 	colorDisplay.textContent = pickedColor;
 	for (var i = 0; i < squares.length; i++) {
 		squares[i].style.backgroundColor = colors[i];
 	}
-	h1.style.backgroundColor = "stealblue";
+	h1.style.backgroundColor = "steelblue";
 });
 
 colorDisplay.textContent = pickedColor;
