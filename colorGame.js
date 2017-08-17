@@ -1,18 +1,50 @@
-var colors = generateRandomColors(6);
+var numOfSquares = 6;
+var colors = generateRandomColors(numOfSquares);
 var squares = document.querySelectorAll(".square");
 var pickedColor = pickColor();
 var colorDisplay = document.querySelector("#colorDisplay");
 var messageDisplay = document.querySelector("#message");
 var h1 = document.querySelector("h1");
 var resetButton = document.querySelector("#reset");
+var easyButton = document.querySelector("#easy");
+var hardButton = document.querySelector("#hard");
+
+easyButton.addEventListener("click", function(){
+	hardButton.classList.remove("selected");
+	easyButton.classList.add("selected");
+	createSquares(3);
+});
+
+hardButton.addEventListener("click", function(){
+	easyButton.classList.remove("selected");
+	hardButton.classList.add("selected");
+	createSquares(6);
+});
+
+function createSquares(num){
+	numOfSquares = num;
+	colors = generateRandomColors(num);
+	pickedColor = pickColor();
+	colorDisplay.textContent = pickedColor;
+	for (var i = 0; i < squares.length; i++) {
+		if(colors[i]){
+			squares[i].style.backgroundColor = colors[i];
+			squares[i].style.display = "block";
+		} else{
+			squares[i].style.display = "none";
+		}
+	}
+}
 
 resetButton.addEventListener("click", function(){
-	colors = generateRandomColors(6);
+	resetButton.textContent = "Nexw Colors";
+	colors = generateRandomColors(numOfSquares);
 	pickedColor = pickColor();
 	colorDisplay.textContent = pickedColor;
 	for (var i = 0; i < squares.length; i++) {
 		squares[i].style.backgroundColor = colors[i];
 	}
+	h1.style.backgroundColor = "stealblue";
 });
 
 colorDisplay.textContent = pickedColor;
@@ -27,7 +59,8 @@ for (var i = 0; i < squares.length; i++) {
 		if(clickedColor === pickedColor){
 			this.style.backgroundColor = "#232323";
 			messageDisplay.textContent = "Correct!";
-			changeColor(clickedColor);
+			resetButton.textContent = "Play Again?";
+			changeColors(clickedColor);
 			h1.style.backgroundColor = clickedColor;
 		} else {
 			this.style.backgroundColor = "#232323";
@@ -36,7 +69,7 @@ for (var i = 0; i < squares.length; i++) {
 	});
 }
 
-function changeColor(color){
+function changeColors(color){
 	for (var i = 0; i < squares.length; i++) {
 		squares[i].style.backgroundColor = color;
 	}
