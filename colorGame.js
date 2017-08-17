@@ -6,45 +6,36 @@ var colorDisplay = document.querySelector("#colorDisplay");
 var messageDisplay = document.querySelector("#message");
 var h1 = document.querySelector("h1");
 var resetButton = document.querySelector("#reset");
-var easyButton = document.querySelector("#easy");
-var hardButton = document.querySelector("#hard");
+var modeButtons = document.querySelectorAll(".mode");
 
-easyButton.addEventListener("click", function(){
-	hardButton.classList.remove("selected");
-	easyButton.classList.add("selected");
-	createSquares(3);
-});
-
-hardButton.addEventListener("click", function(){
-	easyButton.classList.remove("selected");
-	hardButton.classList.add("selected");
-	createSquares(6);
-});
-
-function createSquares(num){
-	numOfSquares = num;
-	colors = generateRandomColors(num);
-	pickedColor = pickColor();
-	colorDisplay.textContent = pickedColor;
-	for (var i = 0; i < squares.length; i++) {
-		if(colors[i]){
-			squares[i].style.backgroundColor = colors[i];
-			squares[i].style.display = "block";
-		} else{
-			squares[i].style.display = "none";
-		}
-	}
+for (var i = 0; i < modeButtons.length; i++) {
+	modeButtons[i].addEventListener("click", function(){
+		modeButtons[0].classList.toggle("selected");
+		modeButtons[1].classList.toggle("selected");
+		this.textContent === "Easy" ? numOfSquares = 3: numOfSquares = 6;
+		reset();
+	});
 }
 
-resetButton.addEventListener("click", function(){
+function reset(){
 	resetButton.textContent = "New Colors";
 	colors = generateRandomColors(numOfSquares);
 	pickedColor = pickColor();
 	colorDisplay.textContent = pickedColor;
+	messageDisplay.textContent = "";
 	for (var i = 0; i < squares.length; i++) {
-		squares[i].style.backgroundColor = colors[i];
+		if(colors[i]){
+			squares[i].style.backgroundColor = colors[i];
+			squares[i].style.display = "block";
+		} else {
+			squares[i].style.display = "none";
+		}
 	}
 	h1.style.backgroundColor = "steelblue";
+}
+
+resetButton.addEventListener("click", function(){
+	reset();
 });
 
 colorDisplay.textContent = pickedColor;
