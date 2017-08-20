@@ -1,6 +1,8 @@
 var numOfSquares = 6;
 var colors = [];
 var pickedColor;
+var correctAnswer = "./sounds/correctAnswer.mp3";
+var wrongAnswer = "./sounds/wrongAnswer.mp3";
 var squares = document.querySelectorAll(".square");
 var colorDisplay = document.querySelector("#colorDisplay");
 var messageDisplay = document.querySelector("#message");
@@ -34,12 +36,14 @@ function setupSquares(){
 			var clickedColor = this.style.backgroundColor;
 			if(clickedColor === pickedColor){
 				this.style.backgroundColor = "#232323";
+				new Audio(correctAnswer).play();
 				messageDisplay.textContent = "Correct!";
 				resetButton.textContent = "Play Again?";
 				changeColors(clickedColor);
 				h1.style.backgroundColor = clickedColor;
 			} else {
 				this.style.backgroundColor = "#232323";
+				new Audio(wrongAnswer).play();
 				messageDisplay.textContent = "Try Again";
 			}
 		});
